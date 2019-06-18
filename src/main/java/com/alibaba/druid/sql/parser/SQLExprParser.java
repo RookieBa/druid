@@ -3078,7 +3078,7 @@ public class SQLExprParser extends SQLParser {
         } else {
             if (lexer.token == Token.EQ) {
                 lexer.nextToken();
-            } else if (JdbcConstants.DB2.equals(dbType)) {
+            } else if (JdbcConstants.DB2.equals(dbType) || JdbcConstants.ORACLE.equals(dbType)) {
                 // skip
             } else {
                 accept(Token.EQ);

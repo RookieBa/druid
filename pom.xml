@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.alibaba</groupId>
 	<artifactId>druid</artifactId>
-	<version>1.1.17_preview_6</version>
+	<version>1.1.17_1</version>
 
 	<packaging>jar</packaging>
 	<name>druid</name>
@@ -16,8 +16,8 @@
 		<junit.version>4.12</junit.version>
 		<jmh.version>1.19</jmh.version>
 
-		<gpg.skip>false</gpg.skip>
-		<javadoc.skip>false</javadoc.skip>
+		<gpg.skip>true</gpg.skip>
+		<javadoc.skip>true</javadoc.skip>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.6</jdk.version>
@@ -265,7 +265,7 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		<profile>
+		<!--<profile>
 			<id>mac-profile</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -283,9 +283,9 @@
 					<optional>true</optional>
 				</dependency>
 			</dependencies>
-		</profile>
+		</profile>-->
 
-		<profile>
+		<!--<profile>
 			<id>mac-profile-oracle-jdk</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -312,7 +312,7 @@
 					<optional>true</optional>
 				</dependency>
 			</dependencies>
-		</profile>
+		</profile>-->
 		<profile>
 			<id>travis</id>
 			<activation>
@@ -321,12 +321,12 @@
 					<value>true</value>
 				</property>
 			</activation>
-			<build>
+			<!--<build>
 				<plugins>
 					<plugin>
-						<!-- for codecov.io -->
-						<!-- config example: https://github.com/codecov/example-java -->
-						<!-- plugin docs: http://eclemma.org/jacoco/trunk/doc/ -->
+						&lt;!&ndash; for codecov.io &ndash;&gt;
+						&lt;!&ndash; config example: https://github.com/codecov/example-java &ndash;&gt;
+						&lt;!&ndash; plugin docs: http://eclemma.org/jacoco/trunk/doc/ &ndash;&gt;
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<version>0.7.6.201602180812</version>
@@ -346,7 +346,7 @@
 						</executions>
 					</plugin>
 				</plugins>
-			</build>
+			</build>-->
 		</profile>
 	</profiles>
 
@@ -618,13 +618,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>proxool</groupId>
+			<groupId>com.cloudhopper.proxool</groupId>
 			<artifactId>proxool</artifactId>
 			<version>0.9.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>proxool</groupId>
+			<groupId>com.cloudhopper.proxool</groupId>
 			<artifactId>proxool-cglib</artifactId>
 			<version>0.9.1</version>
 			<scope>test</scope>
