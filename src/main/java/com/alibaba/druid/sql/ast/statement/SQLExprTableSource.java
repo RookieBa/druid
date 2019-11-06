@@ -35,6 +35,8 @@ public class SQLExprTableSource extends SQLTableSourceImpl implements SQLReplace
     private List<SQLName> partitions;
     private SchemaObject  schemaObject;
 
+    private static ThreadLocal<List<String>> owner = new ThreadLocal<List<String>>();
+
     public SQLExprTableSource(){
 
     }
@@ -55,6 +57,12 @@ public class SQLExprTableSource extends SQLTableSourceImpl implements SQLReplace
     public void setExpr(SQLExpr expr) {
         if (expr != null) {
             expr.setParent(this);
+            List<String> ownerNames = owner.get();
+            if (ownerNames != null && expr instanceof SQLPropertyExpr) {
+                if (!ownerNames.contains(((SQLPropertyExpr) expr).getOwner().toString().toLowerCase())) {
+                    throw new IllegalOwnerException(expr.toString());
+                }
+            }
         }
         this.expr = expr;
     }
@@ -308,5 +316,18 @@ public class SQLExprTableSource extends SQLTableSourceImpl implements SQLReplace
             return true;
         }
         return false;
+    }
+
+    public static void setOwner(String ownerName) {
+        if (ownerName == null || ownerName.length() == 0) {
+            owner.set(null);
+            return;
+        }
+        String[] array = ownerName.split(";");
+        List<String> ownerNames = new ArrayList<String>();
+        for (String str : array) {
+            ownerNames.add(str.toLowerCase());
+        }
+        owner.set(ownerNames);
     }
 }
