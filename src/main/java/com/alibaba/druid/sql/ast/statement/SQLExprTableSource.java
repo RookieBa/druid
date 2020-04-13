@@ -58,8 +58,11 @@ public class SQLExprTableSource extends SQLTableSourceImpl implements SQLReplace
         if (expr != null) {
             expr.setParent(this);
             List<String> ownerNames = owner.get();
-            if (ownerNames != null && expr instanceof SQLPropertyExpr) {
-                if (!ownerNames.contains(((SQLPropertyExpr) expr).getOwner().toString().toLowerCase())) {
+            if (ownerNames != null) {
+                while (expr instanceof SQLPropertyExpr) {
+                    expr = ((SQLPropertyExpr) expr).getOwner();
+                }
+                if (expr instanceof SQLIdentifierExpr && !ownerNames.contains(expr.toString().toLowerCase())) {
                     throw new IllegalOwnerException(expr.toString());
                 }
             }
