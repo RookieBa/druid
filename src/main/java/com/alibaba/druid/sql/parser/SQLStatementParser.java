@@ -128,6 +128,7 @@ import com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser;
 import com.alibaba.druid.sql.dialect.oracle.parser.OracleExprParser;
 import com.alibaba.druid.util.FnvHash;
 import com.alibaba.druid.util.JdbcConstants;
+import org.apache.calcite.sql.SqlIdentifier;
 
 public class SQLStatementParser extends SQLParser {
 
@@ -2997,6 +2998,11 @@ public class SQLStatementParser extends SQLParser {
                 SQLSelect select = selectParser.select();
                 SQLQueryExpr queryExpr = new SQLQueryExpr(select);
                 stmt.setFor(queryExpr);
+            } else if (lexer.token == Token.IDENTIFIER) {
+                //add by bawy，增加open游标遇到变量的情况
+                SQLIdentifierExpr identifierExpr = new SQLIdentifierExpr(lexer.stringVal);
+                lexer.nextToken();
+                stmt.setFor(identifierExpr);
             } else {
                 throw new ParserException("TODO " + lexer.info());
             }
